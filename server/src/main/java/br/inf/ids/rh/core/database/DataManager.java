@@ -58,6 +58,10 @@ public class DataManager {
 	public <T extends EntityId> void alterar(T entity) {
 		this.transacao().merge(entity);
 	}
+	
+	public <T extends EntityId> void excluir(T entity) {
+		em.remove(entity);
+	}
 
 	public <T> T byId(Class<T> classe, long id) {
 		return getEm().find(classe, id);

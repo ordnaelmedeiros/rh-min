@@ -102,9 +102,22 @@ public class AcessoResource {
 		return acesso;
 		
 	}
+	
+
+	public void alterar(Acesso acesso) throws Exception {
+		
+		acesso.setSituacao(REVALIDAR);
+		if (acesso.getSenha().length()<64) {
+			acesso.setSenha(Criptografar.sha256(acesso.getSenha()));
+		}
+		
+		dm.alterar(acesso);
+		
+	}
+	
 
 	public Acesso byId(long id) {
 		return dm.byId(Acesso.class, id);
 	}
-	
+
 }

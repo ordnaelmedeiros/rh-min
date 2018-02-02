@@ -1,13 +1,17 @@
 package br.inf.ids.rh;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.inf.ids.rh.core.database.DataManager;
-import br.inf.ids.rh.rest.entity.Usuario;
 import br.inf.ids.rh.rest.entity.acesso.Acesso;
+import br.inf.ids.rh.rest.entity.usuario.Perfil;
+import br.inf.ids.rh.rest.entity.usuario.Usuario;
+import br.inf.ids.rh.rest.entity.usuario.UsuarioPerfil;
 import br.inf.ids.rh.rest.resources.usuario.UsuarioResource;
 
 @Component
@@ -24,9 +28,13 @@ public class AppInit {
     	
     	try {
     		
-    		Usuario usuario = usuarioResource.byId(1l);
+    		Usuario usuario = usuarioResource.byUserName("IDS Software");
     		
     		if (usuario==null) {
+    			
+    			UsuarioPerfil perfil = new UsuarioPerfil();
+    			perfil.setPerfil(Perfil.ADMIN);
+    			perfil.setSelecionado(true);
     			
     			Acesso acesso = new Acesso();
     			acesso.setNomeDeAcesso("ids.software");
@@ -36,7 +44,7 @@ public class AppInit {
     			usuario = new Usuario();
     			usuario.setAcesso(acesso);
     			usuario.setNome("IDS Software");
-    			
+    			usuario.setPerfis(Arrays.asList(perfil));
     			usuarioResource.gravar(usuario);
     			
     			dm.commit();

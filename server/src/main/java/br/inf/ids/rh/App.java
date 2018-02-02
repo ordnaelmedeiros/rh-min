@@ -1,5 +1,7 @@
 package br.inf.ids.rh;
 
+import static br.inf.ids.rh.PropriedadesConexao.serverPort;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +24,13 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(App.class, args);
+    	
+    	PropriedadesConexao.verifica();
+    	//args[args.length] = "-server.port="+serverPort();
+    	String[] args2 = new String[1];
+    	args2[0] = "--server.port="+serverPort();
+    	SpringApplication.run(App.class, args2);
+    	
     }
     
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
