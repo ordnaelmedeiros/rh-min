@@ -5,6 +5,7 @@ import static br.inf.ids.rh.rest.entity.acesso.AcessoSituacao.REVALIDAR;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import br.inf.ids.rh.core.exceptions.RestException;
 import br.inf.ids.rh.rest.entity.usuario.Perfil;
@@ -12,6 +13,7 @@ import br.inf.ids.rh.rest.entity.usuario.Usuario;
 import br.inf.ids.rh.rest.entity.usuario.UsuarioPerfil;
 import br.inf.ids.rh.rest.resources.usuario.UsuarioResource;
 
+@RequestScope
 @Component
 public class AcessoUtil {
 	

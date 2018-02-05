@@ -16,12 +16,14 @@ public class CopiaProp {
 				try {
 					
 					Field deField = de.getClass().getDeclaredField(paraField.getName());
+					deField.setAccessible(true);
 					Object valor = deField.get(de);
 					
 					paraField.setAccessible(true);
 					paraField.set(para, valor);
 					
 				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 			

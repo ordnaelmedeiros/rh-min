@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import br.inf.ids.rh.core.criptografar.Criptografar;
 import br.inf.ids.rh.core.database.DataManager;
@@ -17,12 +18,21 @@ import br.inf.ids.rh.core.exceptions.RestException;
 import br.inf.ids.rh.rest.entity.acesso.Acesso;
 import br.inf.ids.rh.rest.entity.acesso.AcessoToken;
 
+@RequestScope
 @Component
 public class AcessoResource {
 	
 	@Autowired
 	private DataManager dm;
 	
+	public AcessoResource() {
+	}
+	
+	public AcessoResource(DataManager dm) {
+		super();
+		this.dm = dm;
+	}
+
 	private Acesso byLogin(String nome, String senha) throws Exception {
 		
 		TypedQuery<Acesso> query = dm.createQuery(

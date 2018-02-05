@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import br.inf.ids.rh.core.database.DataManager;
 import br.inf.ids.rh.rest.entity.acesso.AcessoToken;
@@ -16,6 +17,7 @@ import br.inf.ids.rh.rest.entity.usuario.Usuario;
 import br.inf.ids.rh.rest.entity.usuario.UsuarioPerfil;
 import br.inf.ids.rh.rest.resources.acesso.AcessoResource;
 
+@RequestScope
 @Component
 public class UsuarioResource {
 
@@ -25,6 +27,15 @@ public class UsuarioResource {
 	@Autowired
 	private AcessoResource acessoResource;
 	
+	public UsuarioResource() {
+	}
+	
+	public UsuarioResource(DataManager dm, AcessoResource acessoResource) {
+		super();
+		this.dm = dm;
+		this.acessoResource = acessoResource;
+	}
+
 	public Usuario gravar(Usuario usuario) throws Exception {
 
 		acessoResource.gravar(usuario.getAcesso());

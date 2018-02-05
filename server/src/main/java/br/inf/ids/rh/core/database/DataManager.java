@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
+@RequestScope
 @Component
 public class DataManager {
 	

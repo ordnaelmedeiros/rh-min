@@ -10,24 +10,26 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import br.inf.ids.rh.core.database.EntityId;
 import br.inf.ids.rh.rest.entity.usuario.Usuario;
+import br.inf.ids.rh.rest.entity.usuario.UsuarioSerializer;
 
 @Entity
 @Audited
 public class Certificado extends EntityId {
 	
-	@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="usuarioId", foreignKey=@ForeignKey(name="fk_Certificado_Usuario"))
+	@JsonSerialize(using=UsuarioSerializer.Serializer.class)
 	private Usuario usuario;
 	
 	@NotNull
@@ -57,7 +59,10 @@ public class Certificado extends EntityId {
 	
 	@Column(columnDefinition="text")
 	private String motivo;
-
+	
+	@Transient
+	private String dados;
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -120,6 +125,14 @@ public class Certificado extends EntityId {
 
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
+	}
+
+	public String getDados() {
+		return dados;
+	}
+
+	public void setDados(String dados) {
+		this.dados = dados;
 	}
 	
 }

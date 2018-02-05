@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.inf.ids.rh.core.database.DataManager;
@@ -12,21 +11,21 @@ import br.inf.ids.rh.rest.entity.acesso.Acesso;
 import br.inf.ids.rh.rest.entity.usuario.Perfil;
 import br.inf.ids.rh.rest.entity.usuario.Usuario;
 import br.inf.ids.rh.rest.entity.usuario.UsuarioPerfil;
+import br.inf.ids.rh.rest.resources.acesso.AcessoResource;
 import br.inf.ids.rh.rest.resources.usuario.UsuarioResource;
 
 @Component
 public class AppInit {
 
-	@Autowired
-	private DataManager dm;
-	
-    @Autowired
-    private UsuarioResource usuarioResource;
-    
     @PostConstruct
     public void init() throws Exception {
     	
+    	DataManager dm = new DataManager();
+		
     	try {
+    		
+    		AcessoResource acessoResource = new AcessoResource(dm);
+			UsuarioResource usuarioResource = new UsuarioResource(dm, acessoResource);
     		
     		Usuario usuario = usuarioResource.byUserName("IDS Software");
     		
